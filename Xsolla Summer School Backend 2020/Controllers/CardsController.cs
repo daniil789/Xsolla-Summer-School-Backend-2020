@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Xsolla_Summer_School_Backend_2020.Interfaces;
 using Xsolla_Summer_School_Backend_2020.Models;
 
@@ -15,11 +16,12 @@ namespace Xsolla_Summer_School_Backend_2020.Controllers
     {
        
         private readonly ICardService _cardService;
+        private ApplicationContext db;
 
-        public CardsController(ICardService cardService)
+        public CardsController(ICardService cardService, ApplicationContext context)
         {
             _cardService = cardService;
-
+            db = context;
         }
 
         [HttpPost("CreateCard")]
@@ -27,14 +29,24 @@ namespace Xsolla_Summer_School_Backend_2020.Controllers
         {
             try
             {
-                _cardService.CreateCard(card);
-                return Ok();
-
+                if (card.Validation() == true)
+                {
+                    _cardService.CreateCard(card);
+                    return Ok();
+                }
+                else
+                    return BadRequest();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
+        }
+       
+        [HttpGet("ViewCars")]
+        public  IEnumerable<Card> ViewCard()
+        {
+            return db.Cards.ToList();       
         }
        
 
