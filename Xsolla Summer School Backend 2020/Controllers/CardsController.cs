@@ -28,14 +28,9 @@ namespace Xsolla_Summer_School_Backend_2020.Controllers
         public ActionResult CreateCard(Card card)
         {
             try
-            {
-                if (card.LuhnAlgorithm() == true)
-                {
-                    _cardService.CreateCard(card);
-                    return Ok();
-                }
-                else
-                    return BadRequest();
+            {  
+                _cardService.CreateCard(card);
+                return Ok(); 
             }
             catch (Exception ex)
             {
@@ -44,9 +39,9 @@ namespace Xsolla_Summer_School_Backend_2020.Controllers
         }
        
         [HttpGet("ViewCars")]
-        public  IEnumerable<Card> ViewCard()
+        public async Task<List<Card>> ViewCard()
         {
-            return db.Cards.ToList();       
+            return await _cardService.ViewCard();     
         }
        
 

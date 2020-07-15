@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -13,9 +14,11 @@ namespace Xsolla_Summer_School_Backend_2020.Services
     public class CardService : ICardService
     {
         private readonly ApplicationContext _db;
-        public CardService(ApplicationContext context)
+        private readonly IValidateService _validateService;
+        public CardService(ApplicationContext context, IValidateService validateService)
         {
             _db = context;
+            _validateService = validateService;
         }
         public Card CreateCard(Card card)
         {
@@ -24,16 +27,25 @@ namespace Xsolla_Summer_School_Backend_2020.Services
                 throw new Exception("Карта не валидна");
             }
 
-            _db.Cards.Add(card);
-            _db.SaveChanges();
-            return card;
-            
+            if (_validateService.LuhnAlgorithm(card))
+                {
+                _db.Cards.Add(card);
+                _db.SaveChanges();
+                return card;
+            }
+            else
+            {
+                throw new Exception("Карта не валидна");
+            }
            
         }
 
-        //public IEnumerable ViewCard()
-        //{
-        //    return _db.Cards.ToList();
-        //}
+        public async Task<List<Card>> ViewCard()
+        {
+            return await _db.Cards.ToListAsync();
+        }
+
+       
     }
 }
+

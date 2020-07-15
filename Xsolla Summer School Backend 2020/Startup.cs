@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Xsolla_Summer_School_Backend_2020.Controllers;
 using Xsolla_Summer_School_Backend_2020.Interfaces;
 using Xsolla_Summer_School_Backend_2020.Models;
 using Xsolla_Summer_School_Backend_2020.Services;
@@ -35,6 +36,7 @@ namespace Xsolla_Summer_School_Backend_2020
             services.AddControllers();
             services.AddSwaggerGen();
             services.AddScoped<ICardService, CardService>();
+            services.AddScoped<IValidateService, ValidateService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
