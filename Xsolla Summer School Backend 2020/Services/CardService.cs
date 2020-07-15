@@ -24,9 +24,9 @@ namespace Xsolla_Summer_School_Backend_2020.Services
                 throw new Exception("Карта не валидна");
             }
 
-                _db.Cards.Add(card);
-                _db.SaveChanges();
-                return card;
+            _db.Cards.Add(card);
+            _db.SaveChanges();
+            return card;
             
            
         }

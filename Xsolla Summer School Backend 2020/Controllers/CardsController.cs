@@ -29,7 +29,7 @@ namespace Xsolla_Summer_School_Backend_2020.Controllers
         {
             try
             {
-                if (card.Validation() == true)
+                if (card.LuhnAlgorithm() == true)
                 {
                     _cardService.CreateCard(card);
                     return Ok();
