@@ -9,10 +9,10 @@ namespace Xsolla_Summer_School_Backend_2020.Controllers
 {
     public class ValidateService : IValidateService
     {
-        public bool LuhnAlgorithm(Card card)
+        public bool LuhnAlgorithm(string number)
         {
 
-            long numbercard = Convert.ToInt64(card.Number);
+            long numbercard = Convert.ToInt64(number);
             string str = numbercard.ToString();
             int[] numcard = new int[str.Length];
             for (int i = 0; i < str.Length; i++)

@@ -16,12 +16,10 @@ namespace Xsolla_Summer_School_Backend_2020.Controllers
     {
        
         private readonly ICardService _cardService;
-        private ApplicationContext db;
 
         public CardsController(ICardService cardService, ApplicationContext context)
         {
             _cardService = cardService;
-            db = context;
         }
 
         [HttpPost("CreateCard")]
@@ -37,7 +35,21 @@ namespace Xsolla_Summer_School_Backend_2020.Controllers
                 return BadRequest(ex.Message);
             }
         }
-       
+
+        [HttpPost("MoneyTransfer")]
+        public int MoneyTransfer(Transfer transfer)
+        {
+            try
+            {
+                _cardService.MoneyTransfer(transfer);
+                return transfer.SessionId;
+            }
+            catch
+            {
+                throw new Exception("Неудача");
+            }
+        }
+
         [HttpGet("ViewCars")]
         public async Task<List<Card>> ViewCard()
         {

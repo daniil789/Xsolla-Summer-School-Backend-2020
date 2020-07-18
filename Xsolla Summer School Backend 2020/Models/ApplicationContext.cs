@@ -9,6 +9,7 @@ namespace Xsolla_Summer_School_Backend_2020.Models
     public class ApplicationContext : DbContext
     {
         public DbSet<Card> Cards { get; set; }
+        public DbSet<Transfer> Transfers { get; set; }
 
         public ApplicationContext(DbContextOptions<ApplicationContext> options)
             : base(options)

@@ -6,15 +6,11 @@ using System.Threading.Tasks;
 
 namespace Xsolla_Summer_School_Backend_2020.Models
 {
-    public class Card
+    public class Transfer
     {
-        
-        public string Number { get; set; }
-        public int CVC { get; set; }
-        //public Date Date { get; set; }
-        
+        public int Sum { get; set; }
+        public string NumberCard { get; set; }
         [Key]
         public int SessionId { get; set; }
-
     }
 }

@@ -8,7 +8,7 @@ namespace Xsolla_Summer_School_Backend_2020.Interfaces
 {
     public interface IValidateService
     {
-         bool LuhnAlgorithm(Card card);
+         bool LuhnAlgorithm(string number);
 
     }
 }

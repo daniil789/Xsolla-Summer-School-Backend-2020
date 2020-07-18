@@ -12,6 +12,7 @@ namespace Xsolla_Summer_School_Backend_2020.Interfaces
     {
         Card CreateCard(Card card);
         Task<List<Card>> ViewCard();
+        Transfer MoneyTransfer(Transfer transfer);
 
     }
 }

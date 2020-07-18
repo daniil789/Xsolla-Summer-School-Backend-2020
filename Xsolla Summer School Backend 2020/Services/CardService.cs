@@ -27,7 +27,7 @@ namespace Xsolla_Summer_School_Backend_2020.Services
                 throw new Exception("Карта не валидна");
             }
 
-            if (_validateService.LuhnAlgorithm(card))
+            if (_validateService.LuhnAlgorithm(card.Number))
                 {
                 _db.Cards.Add(card);
                 _db.SaveChanges();
@@ -39,6 +39,28 @@ namespace Xsolla_Summer_School_Backend_2020.Services
             }
            
         }
+
+        public Transfer MoneyTransfer(Transfer transfer)
+        {
+
+            if (transfer == null)
+            {
+                throw new Exception("Карта не валидна");
+            }
+
+            if (_validateService.LuhnAlgorithm(transfer.NumberCard))
+            {
+                _db.Transfers.Add(transfer);
+                _db.SaveChanges();
+                return transfer;
+            }
+            else
+            {
+                throw new Exception("Карта не валидна");
+            }
+
+        }
+
 
         public async Task<List<Card>> ViewCard()
         {
